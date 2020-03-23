@@ -41,22 +41,20 @@ spec:
         - containerPort: 8039
           name: presence
 
-
 ---
-
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: server-nodeport
-  labels:
-    app: server
+  name: server-loadbalancer
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
-  - port: 80
+  - port: 8080
+    targetPort: 80
     name: http
   - port: 8039
+    targetPort: 8039
     name: presence
   selector:
     app: server
